@@ -18,7 +18,7 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
-                @hasrole('manager')
+                @hasanyrole('manager|staff|assistant')
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Home</span>
@@ -35,15 +35,17 @@
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Data Master</span>
                     </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ url('karyawan') }}" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-aperture"></i>
-                            </span>
-                            <span class="hide-menu">Data Karyawan</span>
-                        </a>
-                    </li>
-                @endhasrole
+                    @hasrole('manager')
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ url('karyawan') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-aperture"></i>
+                                </span>
+                                <span class="hide-menu">Data Karyawan</span>
+                            </a>
+                        </li>
+                    @endhasrole
+                @endhasanyrole
                 @hasanyrole('manager|staff|assistant|employee')
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">

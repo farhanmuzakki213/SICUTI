@@ -4,9 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard e-KBK</title>
+    <title>{{Auth::user()->roles->pluck('name')->implode(', ')}}</title>
     <link rel="shortcut icon" type="image/png" href="../assets/img/logo/logo-transparant.png" />
     <link rel="stylesheet" href="{{ asset('backend/assets/css/styles.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/bar.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/css/admin.css') }}" />
     <!-- Custom styles for this DataTable -->
     <link href="{{ asset('backend/assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">

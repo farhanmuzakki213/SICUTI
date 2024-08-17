@@ -40,6 +40,7 @@ Route::group(['middleware' => ['role:manager|assistant|staff|employee']], functi
 
     // Rute untuk Assistant, Staff, dan Manager
     Route::group(['middleware' => ['role:manager|assistant|staff']], function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::put('/cuti/update/{id}', [CutiController::class, 'update'])->name('cuti.update');
     });
     // Rute khusus untuk Karyawan
