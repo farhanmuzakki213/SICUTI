@@ -22,6 +22,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/user/logout', [AdminController::class, 'destroy'])->name('user.logout');
+
 // Rute untuk Manager
 Route::group(['middleware' => ['role:manager']], function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -36,7 +38,6 @@ Route::group(['middleware' => ['role:manager']], function () {
 // Rute untuk Karyawan, Assistant, Staff, dan Manager
 Route::group(['middleware' => ['role:manager|assistant|staff|employee']], function () {
     Route::get('/dataCuti', [CutiController::class, 'index'])->name('cuti');
-    Route::get('/user/logout', [AdminController::class, 'destroy'])->name('user.logout');
 
     // Rute untuk Assistant, Staff, dan Manager
     Route::group(['middleware' => ['role:manager|assistant|staff']], function () {
