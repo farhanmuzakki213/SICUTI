@@ -30,7 +30,7 @@
                                         @foreach ($data_divisi as $data)
                                             <option value="{{ $data->id_divisi }}"
                                                 {{ $data->id_divisi == $data_karyawan->divisi_id ? 'selected' : '' }}>
-                                                {{ $data->nama_divisi }}
+                                                {{ $data->deskripsi }}
                                             </option>
                                         @endforeach
                                     </select>
