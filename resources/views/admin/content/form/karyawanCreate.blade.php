@@ -60,7 +60,7 @@
                                         id="divisi" required>
                                         <option selected disabled>Pilih Divisi</option>
                                         @foreach ($data_divisi as $data)
-                                            <option value="{{ $data->id_divisi }}">{{ $data->nama_divisi }}</option>
+                                            <option value="{{ $data->id_divisi }}">{{ $data->deskripsi }}</option>
                                         @endforeach
                                     </select>
                                     @error('divisi')
