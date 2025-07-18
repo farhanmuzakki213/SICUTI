@@ -49,4 +49,9 @@ class AdminController extends Controller
         $dataCutiDiproses = $dataCutiDiajukan - ($dataCutiDiterima + $dataCutiDitolak);
         return view('admin.content.dashboard', compact('dataKaryawan', 'dataCutiDitolak', 'dataCutiDiterima', 'dataCutiDiproses'));
     }
+
+    public function profileView()
+    {
+        return view('admin.content.profile.profile');
+    }
 }

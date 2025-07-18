@@ -7,6 +7,7 @@ use App\Models\jabatan;
 use App\Models\pegawai;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,11 +28,9 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        $data_user = User::all();
         $data_divisi = divisi::all();
 
-        // dd(compact('data_user', 'data_divisi'));
-        return view('admin.content.form.karyawanCreate', compact('data_user', 'data_divisi'));
+        return view('admin.content.form.karyawanCreate', compact('data_divisi'));
     }
 
     /**
@@ -40,32 +39,40 @@ class PegawaiController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'akunUser' => 'required',
+            'nama' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
             'divisi' => 'required',
-            'nama' => 'required',
-            'nip' => 'required',
+            'nip' => 'required|numeric|unique:pegawai,nip',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $data = [
-            'user_id' => $request->akunUser,
-            'divisi_id' => $request->divisi,
-            'jabatan_id' => 4,
-            'nip' => $request->nip,
-            'nama' => $request->nama,
-            'status' => 'aktif',
-            'saldo_cuti' => 12,
-        ];
         DB::beginTransaction();
         try {
-            pegawai::create($data);
-            $user = User::find($request->akunUser);
-            if ($user) {
-                $user->roles()->attach(4);
-            }
+            // 1. Buat User baru
+            $newUser = User::create([
+                'name' => $request->nama,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+
+            // 2. Lampirkan role ke user (ID 4 diasumsikan sebagai 'employee')
+            $newUser->roles()->attach(4);
+
+            // 3. Buat data pegawai yang terhubung dengan user baru
+            pegawai::create([
+                'user_id' => $newUser->id,
+                'divisi_id' => $request->divisi,
+                'jabatan_id' => 4, // Hardcode jabatan_id untuk karyawan
+                'nip' => $request->nip,
+                'nama' => $request->nama,
+                'status' => 'aktif',
+                'saldo_cuti' => 12,
+            ]);
+
             DB::commit();
         } catch (\Throwable) {
             DB::rollback();

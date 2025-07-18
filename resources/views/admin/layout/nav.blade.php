@@ -40,6 +40,8 @@
                                     </p>
                                 </div>
                             </div>
+                            <a href="{{ route('my.profile') }}"
+                                class="btn btn-outline-primary mx-3 mt-2 d-block">My Profile</a>
                             <a href="{{ route('user.logout') }}"
                                 class="btn btn-outline-primary mx-3 mt-2 mb-2 d-block">Logout</a>
                         </div>

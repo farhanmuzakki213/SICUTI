@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductListController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CutiController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\Auth\PasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,8 +54,10 @@ Route::group(['middleware' => ['role:manager|assistant|staff|employee']], functi
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/my-profile', [AdminController::class, 'profileView'])->name('my.profile');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
