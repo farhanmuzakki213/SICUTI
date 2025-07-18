@@ -14,16 +14,25 @@ return new class extends Migration
         Schema::create('cuti', function (Blueprint $table) {
             $table->id('id_cuti');
             $table->unsignedBigInteger('pegawai_id');
+            $table->unsignedBigInteger('jenis_cuti_id'); // Foreign key untuk jenis cuti
             $table->date('tgl_mulai_cuti');
             $table->date('tgl_akhir_cuti');
-            $table->string('keterangan');
-            $table->enum('s_staff', ['Diajukan', 'Ditolak', 'Diterima']); // Kolom enum untuk status staff
-            $table->enum('s_assistent', ['Diajukan', 'Ditolak', 'Diterima']); // Kolom enum untuk status asistent
-            $table->enum('s_manager', ['Diajukan', 'Ditolak', 'Diterima']); // Kolom enum untuk status manager
+            $table->text('keterangan'); // Keterangan dari pemohon
+
+            // Kolom status yang lebih dinamis
+            $table->enum('status', ['Diajukan', 'Diproses', 'Disetujui', 'Ditolak', 'Revisi'])->default('Diajukan');
+
+            // ID penyetuju saat ini (atasan)
+            $table->unsignedBigInteger('approver_id')->nullable();
+
+            // Keterangan dari approver
+            $table->text('review_keterangan')->nullable();
+
             $table->timestamps();
 
-            // Menambahkan foreign key constraints
             $table->foreign('pegawai_id')->references('id_pegawai')->on('pegawai')->onDelete('cascade');
+            $table->foreign('jenis_cuti_id')->references('id_jenis_cuti')->on('jenis_cuti');
+            $table->foreign('approver_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

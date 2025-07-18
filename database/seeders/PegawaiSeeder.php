@@ -18,6 +18,7 @@ class PegawaiSeeder extends Seeder
                 'user_id' => 1,
                 'jabatan_id' => 1,
                 'divisi_id' => 1,
+                'atasan_id' => null, // Manager tidak punya atasan
                 'nama' => 'John Doe',
                 'nip' => 123456789,
                 'status' => 'aktif',
@@ -27,6 +28,7 @@ class PegawaiSeeder extends Seeder
                 'user_id' => 2,
                 'jabatan_id' => 2,
                 'divisi_id' => 2,
+                'atasan_id' => 1, // Assistant (Jane) lapor ke Manager (John)
                 'nama' => 'Jane Smith',
                 'nip' => 987654321,
                 'status' => 'non-aktif',
@@ -36,6 +38,7 @@ class PegawaiSeeder extends Seeder
                 'user_id' => 3,
                 'jabatan_id' => 3,
                 'divisi_id' => 3,
+                'atasan_id' => 2, // Staff (Alice) lapor ke Assistant (Jane)
                 'nama' => 'Alice Johnson',
                 'nip' => 123123123,
                 'status' => 'aktif',
@@ -45,6 +48,7 @@ class PegawaiSeeder extends Seeder
                 'user_id' => 4,
                 'jabatan_id' => 4,
                 'divisi_id' => 1,
+                'atasan_id' => 3, // Karyawan lapor ke Staff (Alice)
                 'nama' => 'Karyawan1',
                 'nip' => 123123123,
                 'status' => 'aktif',
@@ -54,6 +58,7 @@ class PegawaiSeeder extends Seeder
                 'user_id' => 5,
                 'jabatan_id' => 4,
                 'divisi_id' => 3,
+                'atasan_id' => 3, // Karyawan lapor ke Staff (Alice)
                 'nama' => 'Karyawan2',
                 'nip' => 123123123,
                 'status' => 'aktif',
@@ -63,6 +68,7 @@ class PegawaiSeeder extends Seeder
                 'user_id' => 6,
                 'jabatan_id' => 4,
                 'divisi_id' => 3,
+                'atasan_id' => 3, // Karyawan lapor ke Staff (Alice)
                 'nama' => 'Karyawan3',
                 'nip' => 123123123,
                 'status' => 'aktif',

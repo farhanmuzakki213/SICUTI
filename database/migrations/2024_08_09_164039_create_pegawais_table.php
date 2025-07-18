@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('jabatan_id');
             $table->unsignedBigInteger('divisi_id');
+            $table->unsignedBigInteger('atasan_id')->nullable()->comment('User ID atasan langsung');
             $table->string('nama');
             $table->bigInteger('nip');
             $table->enum('status', ['aktif', 'non-aktif']);
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('jabatan_id')->references('id_jabatan')->on('jabatan')->onDelete('cascade');
             $table->foreign('divisi_id')->references('id_divisi')->on('divisi')->onDelete('cascade');
+            $table->foreign('atasan_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 
